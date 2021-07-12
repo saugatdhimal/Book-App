@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+            rel="stylesheet"
+        />
+        <title>Learning Django</title>
+    </head>
+    <body>
+        <h1 class="text-center text-2xl py-8 font-bold">{{book.title}}</h1>
+        <div class="flex gap-8 px-8">
+            <div>
+                <img
+                    src="{{book.thumbnailUrl}}"
+                    alt="{{book.title}}"
+                    width="200"
+                />
+            </div>
+            <div class="flex-1 flex flex-col gap-2 px-8 mb-8">
+                <h3 class="text-xl font-semibold">Authors</h3>
+                <p>{{book.authors}}</p>
+                <h3 class="text-xl font-semibold mt-2">Description</h3>
+                <p>{{book.shortDescription}}</p>
+                <p>{{book.longDescription}}</p>
+                <form
+                    class="flex flex-col gap-4 my-8"
+                    method="post"
+                    action="{% url 'book.review' book.id %}"
+                >
+                    {% csrf_token %}
+                    <textarea
+                        class="p-4 border-2 border-gray-400 rounded"
+                        name="review"
+                        rows="5"
+                        placeholder="Write Your Review Here"
+                    ></textarea>
+                    <button
+                        class="
+                            bg-blue-900
+                            hover:bg-blue-800
+                            shadow-2xl
+                            text-white
+                            w-48
+                            p-2
+                            rounded
+                            self-center
+                        "
+                        type="submit"
+                    >
+                        Submit
+                    </button>
+                </form>
+                <div>
+                    {% for review in reviews %}
+                    <p>{{ review.body }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
