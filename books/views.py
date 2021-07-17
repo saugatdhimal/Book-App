@@ -4,9 +4,6 @@ from django.views import generic
 
 
 class BookIndexView(generic.ListView):
-	template_name = 'books/index.html'
-	context_object_name = 'books'
-
 	def get_queryset(self):
 		return Book.objects.all()
 
@@ -17,7 +14,6 @@ class BookIndexView(generic.ListView):
 
 class BookDetailView(generic.DetailView):
 	model = Book
-	template_name = 'books/show.html'
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
