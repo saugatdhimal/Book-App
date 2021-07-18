@@ -1,34 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-            href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
-            rel="stylesheet"
+{% extends 'books/base.html' %} 
+
+{% block title %} All Books {% endblock %}
+
+{% block content %}
+<h1 class="text-center text-3xl mb-10 pt-8">Django Books App</h1>
+<div class="flex gap-8 flex-wrap align-center justify-center px-4 mb-8">
+    {% for book in book_list %}
+    <div class="w-60 bg-gray-200 rounded flex flex-col p-4">
+        <p class="text-xl my-4 self-center">{{ book.title}}</p>
+        <img
+            class="mt-auto self-center w-48 h-60"
+            src="{{book.thumbnailUrl}}"
+            alt="{{book.title}}"
         />
-        <title>Learning Django</title>
-    </head>
-    <body>
-        <h1 class="text-center text-3xl mb-10 pt-8">Django Books App</h1>
-        <div class="flex gap-8 flex-wrap align-center justify-center px-4 mb-8">
-            {% for book in book_list %}
-            <div class="w-60 bg-gray-200 rounded flex flex-col p-4">
-                <p class="text-xl my-4 self-center">{{ book.title}}</p>
-                <img
-                    class="mt-auto self-center w-48 h-60"
-                    src="{{book.thumbnailUrl}}"
-                    alt="{{book.title}}"
-                />
-                <a
-                    class="text-xl my-4 self-center"
-                    href="{% url 'book.show' book.id %}"
-                    target="_blank"
-                    >View Details</a
-                >
-            </div>
-            {% endfor %}
-        </div>
-    </body>
-</html>
+        <a
+            class="text-xl my-4 self-center"
+            href="{% url 'book.show' book.id %}"
+            target="_blank"
+            >View Details</a
+        >
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
