@@ -1,4 +1,4 @@
-{% extends 'books/base.html' %} {% block title %} {{book.title}} {% endblock %}
+{% extends 'base.html' %} {% block title %} {{book.title}} {% endblock %}
 {%block content %}
 <h1 class="text-center text-2xl py-8 font-bold">{{book.title}}</h1>
 <div class="flex gap-8 px-8">
@@ -9,8 +9,12 @@
         <h3 class="text-xl font-semibold">Authors</h3>
         <p>
             {% for author in authors %}
-            <a href="{% url 'author.books' author %}" target="_blank">{{author}},</a>
-            {% endfor %}
+            <a
+                class="hover:text-purple-800"
+                href="{% url 'author.books' author %}"
+                target="_blank"
+                >{{author}} </a>, 
+			{% endfor %}
         </p>
         <h3 class="text-xl font-semibold">Pages :- {{book.pageCount}}</h3>
         <h3 class="text-xl font-semibold mt-2">Description</h3>
