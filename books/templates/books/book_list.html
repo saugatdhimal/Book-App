@@ -2,9 +2,10 @@
 
 {% block title %} All Books {% endblock %}
 
+{% block nav_title %} Django Books App {% endblock %}
+
 {% block content %}
-<h1 class="text-center text-3xl mb-10 pt-8">Django Books App</h1>
-<div class="flex gap-8 flex-wrap align-center justify-center px-4 mb-8">
+<div class="flex gap-8 flex-wrap align-center justify-center px-4 py-10">
     {% for book in book_list %}
     <div class="w-60 bg-gray-200 rounded flex flex-col p-4">
         <p class="text-xl my-4 self-center">{{ book.title}}</p>

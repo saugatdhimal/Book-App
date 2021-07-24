@@ -118,3 +118,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/books'
 LOGIN_URL = '/accounts/login'
+LOGOUT_REDIRECT_URL = '/accounts/login'

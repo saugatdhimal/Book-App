@@ -1,35 +1,55 @@
-{% extends "base.html" %} 
-{% block content %} 
+{% extends "base.html" %} {% block content %}
 <div class="flex flex-col items-center mt-8">
-{% if form.errors %}
-<p class="text-red-500">Your username and password didn't match. Please try again.</p>
-{% endif %} {% if next %} {% if user.is_authenticated %}
-<p class="text-red-500">
-    Your account doesn't have access to this page. To proceed, please login with
-    an account that has access.
-</p>
-{% else %}
-<p class="text-red-500">Please login to see this page.</p>
-{% endif %} {% endif %}
+    {% if form.errors %}
+    <p class="text-red-500">
+        Your username and password didn't match. Please try again.
+    </p>
+    {% endif %} {% if next %} {% if user.is_authenticated %}
+    <p class="text-red-500">
+        Your account doesn't have access to this page. To proceed, please login
+        with an account that has access.
+    </p>
+    {% else %}
+    <p class="text-red-500">Please login to see this page.</p>
+    {% endif %} {% endif %}
 
-<form method="post" action="{% url 'login' %}" class="flex flex-col items-center gap-4 mt-8">
-    {% csrf_token %}
-    <table>
-        <tr>
-            <td>{{ form.username.label_tag }}</td>
-            <td>{{ form.username }}</td>
-        </tr>
-        <tr>
-            <td>{{ form.password.label_tag }}</td>
-            <td>{{ form.password }}</td>
-        </tr>
-    </table>
+    <form
+        method="post"
+        action="{% url 'login' %}"
+        class="flex flex-col items-center gap-4 my-8 bg-gray-200 rounded"
+    >
+        {% csrf_token %}
+        <h1 class="bg-blue-900 w-full text-center font-semibold p-3 mb-2  rounded-t text-white text-xl">User Login</h1>
+        <div class="px-8 flex gap-2">
+            <div class="mb-1">{{ form.username.label_tag }}</div>
+            <div>{{ form.username }}</div>
+        </div>
+        <div class="px-8 flex gap-3 justify-between">
+            <div class="mb-1">{{ form.password.label_tag }}</div>
+            <div>{{ form.password }}</div>
+        </div>
 
-    <input type="submit" value="login" class="px-4 py-2 cursor-pointer mb-4" />
-    <input type="hidden" name="next" value="{{ next }}" />
-</form>
+        <input
+            type="submit"
+            value="Login"
+            class="
+                px-4
+                py-1
+                mt-4
+                mb-8
+                cursor-pointer
+                bg-blue-500
+				hover:bg-blue-400
+                text-white
+                font-semibold
+                rounded
+				w-64
+            "
+        />
+        <input type="hidden" name="next" value="{{ next }}" />
+    </form>
 
-{# Assumes you setup the password_reset view in your URLconf #}
-<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+    {# Assumes you setup the password_reset view in your URLconf #}
+    <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
 </div>
 {% endblock %}

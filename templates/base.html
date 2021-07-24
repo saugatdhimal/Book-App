@@ -11,6 +11,33 @@
         <title>{% block title %} Learning Django {% endblock %}</title>
     </head>
     <body>
+        <nav class="p-4 pb-5 flex justify-between items-center bg-blue-900 text-white w-full">
+            <div>
+				<a href="{% url 'index' %}" class="rounded bg-blue-500 hover:bg-blue-600  text-white pt-2 pb-3 px-4 font-semibold">My BookStore</a>
+            </div>
+            <h1 class="text-center text-3xl">
+                {% block nav_title %} Django Book App{% endblock %}
+            </h1>
+            <div class="flex justify-end">
+                {% if user.is_authenticated %}
+                <div>
+                    <a
+                        href="{% url 'logout' %}"
+                        class="rounded bg-red-500 hover:bg-red-600  text-white pt-2 pb-3 px-4 font-semibold"
+                        >Logout</a
+                    >
+                </div>
+                {% else %}
+                <div>
+                    <a
+                        href="{% url 'login' %}"
+                        class="rounded bg-blue-500 text-white pt-2 pb-3 px-4 font-semibold"
+                        >Login</a
+                    >
+                </div>
+                {% endif %}
+            </div>
+        </nav>
         {% block content %} {% endblock %}
     </body>
 </html>
