@@ -1,11 +1,9 @@
 from django.shortcuts import redirect, render
 from books.models import Book, Review
 from django.views import generic
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
 
 
-class BookIndexView(LoginRequiredMixin,generic.ListView):
+class BookIndexView(generic.ListView):
 	def get_queryset(self):
 		return Book.objects.all()
 
@@ -14,7 +12,7 @@ class BookIndexView(LoginRequiredMixin,generic.ListView):
 # 	context = {'books': dbData}
 # 	return render(request, 'books/index.html', context)
 
-class BookDetailView(LoginRequiredMixin,generic.DetailView):
+class BookDetailView(generic.DetailView):
 	model = Book
 
 	def get_context_data(self, **kwargs):
@@ -32,11 +30,10 @@ class BookDetailView(LoginRequiredMixin,generic.DetailView):
 
 def review(request, id):
 	body = request.POST['review']
-	newReview = Review(body=body, book_id=id)
+	newReview = Review(body=body, book_id=id, user=request.user)
 	newReview.save()
 	return redirect('/books')
 
-@login_required
 def author(request, author):
 	books = Book.objects.filter(authors__name=author)
 	context = {'book_list': books}

@@ -21,6 +21,7 @@
         <h3 class="text-xl font-semibold mt-2">Description</h3>
         <p>{{book.shortDescription}}</p>
         <p>{{book.longDescription}}</p>
+		{% if user.is_authenticated %}
         <form
             class="flex flex-col gap-4 my-8"
             method="post"
@@ -49,11 +50,24 @@
                 Submit
             </button>
         </form>
-        <div>
-            {% for review in reviews %}
-            <p>{{ review.body }}</p>
-            {% endfor %}
-        </div>
+		{% else %}
+		<div class="my-4">
+			<a href="{% url 'login' %}?next={{request.path}}" class="rounded bg-blue-500 hover:bg-blue-600  text-white pt-2 pb-3 px-4 font-semibold">Login to write reviews</a>
+		</div>
+		{% endif %}
+		{% if reviews %}
+		<h3 class="text-xl font-semibold mt-2">Reviews</h3>
+		{% endif %}
+
+        {% for review in reviews %}
+		<div class="my-4">
+			<div class="flex gap-4 mb-1 items-center">
+				<p class="text-lg font-semibold">{{ review.user }}</p>
+			    <p class="text-gray-500">{{ review.created_at }}</p>
+			</div>
+			<p>{{ review.body }}</p>
+		</div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
